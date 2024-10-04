@@ -1,0 +1,85 @@
+﻿@model IEnumerable<DataAccess.DTO.ProductDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<form asp-controller="Products" asp-action="Search" method="get">
+    <div class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by Name" aria-label="Search products by name" aria-describedby="button-search-name"
+                   name="searchTerm" />
+            @* <input type="text" class="form-control ms-2" placeholder="Search by Unit Price" aria-label="Search products by price" aria-describedby="button-search-price"
+                   name="priceTerm" /> *@
+            <button class="btn btn-primary ms-2" type="submit" id="button-search">Search</button>
+        </div>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().UnitInstock)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitInstock)
+                </td>
+                <td>
+                    @if (ViewContext.HttpContext.Session.GetString("Type") == "0")
+                    {
+                        <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Create">Orders</a>
+                         </li>
+                    }                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+    li{
+        list-style:none;
+    }
+</style>
